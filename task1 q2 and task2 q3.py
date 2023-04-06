@@ -237,7 +237,6 @@ num_runs = 30
 for i in range(num_runs):
     acc = most_frq_clf.score(X, y)
     accuracies.append(acc)
-print(accuracies)
 print('Average accuracy over {} runs is: {}.'.format(num_runs, np.mean(accuracies)))
 
 #one attribute baseline
