@@ -238,9 +238,6 @@ print('Average accuracy over {} runs is: {}.'.format(num_runs, np.mean(accuracie
 
 #one attribute baseline
 
-train_data_spectral_centroid_var = train_data[['spectral_centroid_var', 'label']]
-test_data_spectral_centroid_var = test_data[['spectral_centroid_var', 'label']]
-
 for x in train_data.columns[:-1]:
     train_data_x = train_data[[x, 'label']]
     test_data_x = test_data[[x, 'label']]
