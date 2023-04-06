@@ -167,7 +167,6 @@ evaluate(predicted_labels, preprocess("pop_vs_classical_test.csv"), "classical")
 
 # In[168]:
 
-
 data = preprocess("pop_vs_classical_train.csv")
 features_list = list(data.columns)
 features_list.remove('label')
@@ -179,23 +178,28 @@ for i in range(len(features_list)):
     if features_list[i] in {'spectral_centroid_mean', 'harmony_mean', 'tempo'}:
         select_meanvar.append([features_list[i], mean_var[0][i][0], math.sqrt(mean_var[0][i][1]), mean_var[1][i][0], math.sqrt(mean_var[1][i][1])])
 
-'''plt.figure(figsize=(6, 9))
-fig, (x, y, z) = plt.subplots(3,1)'''
-
-
 x = np.arange(min(data['spectral_centroid_mean'])-1000, max(data['spectral_centroid_mean'])+1000, 0.001)
 plt.plot(x, norm.pdf(x, select_meanvar[0][1], select_meanvar[0][2]), label='spectral_centroid_mean, classical', color='gold')
 plt.plot(x, norm.pdf(x, select_meanvar[0][3], select_meanvar[0][4]), label='spectral_centroid_mean, pop', color='red')
+plt.title("Spectral Centroid Mean vs pdf")
+plt.xlabel("Spectral Centroid Mean")
+plt.ylabel("pdf")
 plt.show()
 
 y = np.arange(min(data['harmony_mean'])-0.002, max(data['harmony_mean']), 0.0001)
 plt.plot(y, norm.pdf(y, select_meanvar[1][1], select_meanvar[1][2]), label='harmony_mean, classical', color='gold')
 plt.plot(y, norm.pdf(y, select_meanvar[1][3], select_meanvar[1][4]), label='harmony_mean, pop', color='red')
+plt.title("Harmony Mean vs pdf")
+plt.xlabel("Harmony Mean")
+plt.ylabel("pdf")
 plt.show()
 
 z = np.arange(min(data['tempo'])-100, max(data['tempo'])+100, 0.001)
 plt.plot(z, norm.pdf(z, select_meanvar[2][1], select_meanvar[2][2]), label='tempo, classical', color='gold')
 plt.plot(z, norm.pdf(z, select_meanvar[2][3], select_meanvar[2][4]), label='tempo, pop', color='red')
+plt.title("Tempo vs pdf")
+plt.xlabel("Tempo")
+plt.ylabel("pdf")
 plt.show()
 
 
