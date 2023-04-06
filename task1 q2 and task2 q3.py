@@ -215,17 +215,8 @@ gztan_metrics = evaluate(gztan_predicted_labels, preprocess("gztan_test.csv"), p
 gztan_metrics
 
 
-# In[7]:
-
-
-train_data = preprocess("gztan_train.csv")
-list_clm = train_data.columns
-list_clm
-
 
 # In[169]:
-
-
 from sklearn.dummy import DummyClassifier
 from collections import Counter
 
@@ -245,19 +236,19 @@ for i in range(num_runs):
 print(accuracies)
 print('Average accuracy over {} runs is: {}.'.format(num_runs, np.mean(accuracies)))
 
-
-# In[171]:
-
-
 #one attribute baseline
 
-train_data_rms_mean = train_data[['spectral_centroid_var', 'label']]
-test_data_rms_mean = test_data[['spectral_centroid_var', 'label']]
+train_data_spectral_centroid_var = train_data[['spectral_centroid_var', 'label']]
+test_data_spectral_centroid_var = test_data[['spectral_centroid_var', 'label']]
 
-labels, priors, parameters = train(train_data_rms_mean)
-predicted_labels = predict(test_data_rms_mean)
-acc = evaluate(predicted_labels, test_data_rms_mean, positive_class = None)[0]
-print('Average accuracy is: {}.'.format(acc))
+for x in train_data.columns[:-1]:
+    train_data_x = train_data[[x, 'label']]
+    test_data_x = test_data[[x, 'label']]
+    oner_labels, oner_priors, oner_parameters = train(train_data_x)
+    predicted_labels = predict(test_data_x, oner_labels, oner_priors, oner_parameters)
+    acc = evaluate(predicted_labels, test_data_x, positive_class = None)[0]
+    print('Accuracy for {} is: {}.'.format(x, acc))
+
 
 
 # ### Q4
